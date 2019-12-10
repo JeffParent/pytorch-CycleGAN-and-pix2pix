@@ -483,7 +483,7 @@ class UnetSkipConnectionBlock(nn.Module):
             outermost (bool)    -- if this module is the outermost module
             innermost (bool)    -- if this module is the innermost module
             norm_layer          -- normalization layer
-            use_dropout (bool)  -- if use dropout layers.
+            user_dropout (bool) -- if use dropout layers.
         """
         super(UnetSkipConnectionBlock, self).__init__()
         self.outermost = outermost

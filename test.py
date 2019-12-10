@@ -46,7 +46,7 @@ if __name__ == '__main__':
     model = create_model(opt)      # create a model given opt.model and other options
     model.setup(opt)               # regular setup: load and print networks; create schedulers
     # create a website
-    web_dir = os.path.join(opt.results_dir, opt.name, '{}_{}'.format(opt.phase, opt.epoch))  # define the website directory
+    web_dir = os.path.join(opt.results_dir, opt.name, '{}_{}'.format(opt.phase, opt.epoch)).replace("\\","/")  # define the website directory
     if opt.load_iter > 0:  # load_iter is 0 by default
         web_dir = '{:s}_iter{:d}'.format(web_dir, opt.load_iter)
     print('creating web directory', web_dir)
@@ -62,7 +62,8 @@ if __name__ == '__main__':
         model.set_input(data)  # unpack data from data loader
         model.test()           # run inference
         visuals = model.get_current_visuals()  # get image results
-        img_path = model.get_image_paths()     # get image paths
+        img_path = model.get_image_paths()
+        img_path = [path.replace('\\','/') for path in img_path]# get image paths
         if i % 5 == 0:  # save images to an HTML file
             print('processing (%04d)-th image... %s' % (i, img_path))
         save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize)
