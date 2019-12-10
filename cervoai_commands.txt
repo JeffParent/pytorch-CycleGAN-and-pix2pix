@@ -1,8 +1,16 @@
-- changes paths in util scripts -
+#changes paths in util scripts
+
+# migrate files
 python util/migrate_images.py
+
+# combine A and B in the same image next to each other
+python datasets/combine_A_and_B.py --fold_A datasets/cervoai_pix2pix/A --fold_B datasets/cervoai_pix2pix/B --fold_AB datasets/cervoai_pix2pix
+
+# remove empty combined images
 python util/remove_black_images.py
 
-python datasets/combine_A_and_B.py --fold_A datasets/cervoai_pix2pix/A --fold_B datasets/cervoai_pix2pix/B --fold_AB datasets/cervoai_pix2pix
+# train model
 python train.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix --model pix2pix --direction AtoB
+
+# test model
 python test.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix --model pix2pix --direction AtoB
-change --name for each training
