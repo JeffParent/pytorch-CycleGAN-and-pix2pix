@@ -3,7 +3,7 @@ import pandas as pd
 import shutil
 
 src = "C:/Users/jeffp/CervoAI/Data/raw/AI_FS_QC_img"
-dst = "C:/Users/jeffp/pix2pix/datasets/cervoai_pix2pix"
+dst = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/datasets/cervoai_pix2pix"
 csv = "C:/Users/jeffp/CervoAI/Data/raw/AI_FS_QC_img/data_AI_QC.csv"
 dstAtrain = dst + "/A/train"
 dstBtrain = dst + "/B/train"

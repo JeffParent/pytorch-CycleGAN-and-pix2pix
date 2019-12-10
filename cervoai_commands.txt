@@ -1,5 +1,6 @@
 from util: python migrate_images.py and python remove_black_images.py (change paths)
 
+python datasets/combine_A_and_B.py --fold_A datasets/cervoai_pix2pix/A --fold_B datasets/cervoai_pix2pix/B --fold_AB datasets/cervoai_pix2pix
 python train.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix --model pix2pix --direction AtoB
 python test.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix --model pix2pix --direction AtoB
 change --name for each training

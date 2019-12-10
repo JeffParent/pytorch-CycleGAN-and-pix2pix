@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy
 
-dir = "C:/Users/jeffp/pix2pix/datasets/cervoai_pix2pix"
+dir = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/datasets/cervoai_pix2pix"
 dir_train = dir + "/train"
 dir_test = dir + "/test"
 dir_val = dir + "/val"
