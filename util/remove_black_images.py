@@ -12,5 +12,5 @@ for directory in dir_list:
         for file in files:
             img = cv2.imread(subdir + "/" + file)
             if numpy.sum(img) == 0:
-                print(file + " does not contain an image and will be removed.")
+                print(subdir + "/" + file + " does not contain an image and will be removed.")
                 os.remove(subdir + "/" + file)
