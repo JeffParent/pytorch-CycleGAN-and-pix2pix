@@ -1,1 +1,0 @@
-python train.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix --model pix2pix --direction AtoB
