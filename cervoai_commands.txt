@@ -1,4 +1,6 @@
-from util: python migrate_images.py and python remove_black_images.py (change paths)
+- changes paths in util scripts -
+python util/migrate_images.py
+python util/remove_black_images.py
 
 python datasets/combine_A_and_B.py --fold_A datasets/cervoai_pix2pix/A --fold_B datasets/cervoai_pix2pix/B --fold_AB datasets/cervoai_pix2pix
 python train.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix --model pix2pix --direction AtoB

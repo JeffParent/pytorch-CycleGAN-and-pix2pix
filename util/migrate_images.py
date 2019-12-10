@@ -36,13 +36,14 @@ for subdir, dirs, files in os.walk(src):
                     shutil.copy(subdir.replace("\\", "/") + "/" + file, dstAtest)
                 else:
                     shutil.copy(subdir.replace("\\", "/") + "/" + file, dstAval)
+
 i_labels = 0
 for subdir, dirs, files in os.walk(src):
     if "Coronal/labels" in subdir.replace("\\", "/"):
         if i_labels > n_xt_total:
             break
         if subdir.replace("\\", "/").strip("Coronal/labels").strip(src) not in fails_to_not_migrate:
-            print("Copying labels: " + str(i_t1) + "/" + str(n_xt_total))
+            print("Copying labels: " + str(i_labels) + "/" + str(n_xt_total))
             i_labels = i_labels + 1
             for file in files:
                 if i_labels < n_xt_train:
