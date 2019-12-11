@@ -6,6 +6,7 @@ dir = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/datasets/cervoai_pix2pix"
 dir_train = dir + "/train"
 dir_test = dir + "/test"
 dir_val = dir + "/val"
+dir_test_fail = dir + "/test_fail"
 dir_list = [dir_train, dir_test, dir_val]
 for directory in dir_list:
     for subdir, dirs, files in os.walk(directory):

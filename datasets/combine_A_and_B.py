@@ -17,6 +17,9 @@ for arg in vars(args):
 splits = os.listdir(args.fold_A)
 
 for sp in splits:
+    # if sp != 'test_fail':
+    #     continue
+
     img_fold_A = os.path.join(args.fold_A, sp).replace("\\","/")
     img_fold_B = os.path.join(args.fold_B, sp).replace("\\","/")
 

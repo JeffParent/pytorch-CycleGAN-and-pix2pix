@@ -16,4 +16,5 @@ python -m visdom.server
 python train.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix_5000_subset --model pix2pix --save_by_iter --save_epoch_freq 1 --save_latest_freq 1000 --direction AtoB --continue_train --epoch_count 3
 
 # test model
-python test.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix --model pix2pix --direction AtoB
+python test.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix_5000_subset --model pix2pix --direction AtoB
+
