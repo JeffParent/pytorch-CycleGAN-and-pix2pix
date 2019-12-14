@@ -10,6 +10,8 @@ dir_pass_diff = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/results/cervoai_pix
 dir_fail_diff = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/results/cervoai_pix2pix_5000_subset/test_latest/images_diff"
 
 images = ('_7_real_B.png', '_8_real_B.png', '_9_real_B.png', '_10_real_B.png', '_11_real_B.png', '_12_real_B.png', '_13_real_B.png')
+# images = ('_5_real_B.png', '_6_real_B.png', '_7_real_B.png', '_8_real_B.png', '_9_real_B.png', '_10_real_B.png',
+#           '_11_real_B.png', '_12_real_B.png', '_13_real_B.png', '_14_real_B.png', '_15_real_B.png')
 pass_brains = {}
 for subdir, dirs, files in os.walk(dir_pass):
     for file in files:
@@ -52,8 +54,8 @@ for i in range(5):
 
     pt_i = i * pass_test_size
     pt_j = pt_i + pass_test_size
-    pass_brains_test = dict(list(pass_brains.items())[ft_i:ft_j])
-    pass_brains_train = dict(list(pass_brains.items())[0:ft_i] + list(pass_brains.items())[ft_j:-1])
+    pass_brains_test = dict(list(pass_brains.items())[pt_i:pt_j])
+    pass_brains_train = dict(list(pass_brains.items())[0:pt_i] + list(pass_brains.items())[pt_j:-1])
 
     pass_accs = []
     fail_accs = []
@@ -61,11 +63,11 @@ for i in range(5):
 
     for cutoff in cutoffs:
         print("Cutoff: " + str(cutoff))
-        print("pass_brains:")
+        print("train_pass_brains:")
         print(str(len([k for k, v in pass_brains_train.items() if float(v) <= cutoff])) + "/" + str(len(pass_brains_train)))
         pass_accs.append(len([k for k, v in pass_brains_train.items() if float(v) <= cutoff]) / len(pass_brains_train))
         print(str(len([k for k, v in pass_brains_train.items() if float(v) <= cutoff]) / len(pass_brains_train)))
-        print("fail_brains:")
+        print("train_fail_brains:")
         print(str(len([k for k, v in fail_brains_train.items() if float(v) >= cutoff])) + "/" + str(len(fail_brains_train)))
         fail_accs.append(len([k for k, v in fail_brains_train.items() if float(v) >= cutoff]) / len(fail_brains_train))
         print(str(len([k for k, v in fail_brains_train.items() if float(v) >= cutoff]) / len(fail_brains_train)))
@@ -87,11 +89,11 @@ for i in range(5):
     fail_accs = []
     for cutoff in cutoffs:
         print("Cutoff: " + str(cutoff))
-        print("pass_brains:")
+        print("test_pass_brains:")
         print(str(len([k for k, v in pass_brains_test.items() if float(v) <= cutoff])) + "/" + str(len(pass_brains_test)))
         pass_accs.append(len([k for k, v in pass_brains_test.items() if float(v) <= cutoff]) / len(pass_brains_test))
         print(str(len([k for k, v in pass_brains_test.items() if float(v) <= cutoff]) / len(pass_brains_test)))
-        print("fail_brains:")
+        print("test_fail_brains:")
         print(str(len([k for k, v in fail_brains_test.items() if float(v) >= cutoff])) + "/" + str(len(fail_brains_test)))
         fail_accs.append(len([k for k, v in fail_brains_test.items() if float(v) >= cutoff]) / len(fail_brains_test))
         print(str(len([k for k, v in fail_brains_test.items() if float(v) >= cutoff]) / len(fail_brains_test)))
