@@ -1,4 +1,4 @@
-#c hange paths in util scripts
+# change paths in util scripts and cervoai.py
 
 # migrate files
 python util/migrate_images.py
@@ -6,18 +6,19 @@ python util/migrate_images.py
 # combine A and B in the same image next to each other
 python datasets/combine_A_and_B.py --fold_A datasets/cervoai_pix2pix/A --fold_B datasets/cervoai_pix2pix/B --fold_AB datasets/cervoai_pix2pix
 
-# remove empty combined images (optional)
+# Remove empty combined images (optional)
 python util/remove_black_images.py
 
-# start visdom server to watch training progress
+# Start visdom server to watch training progress
 python -m visdom.server
 
-# train model (only on correctly segmented images)
-# we have to watch the training closely on the visdom server. if the generator loss and the discriminator lss diverge, we have to stop the training,
-# reassign the learning rate to balance the neural networks, and continue the training from the latest saved net.
+# Train model (only on correctly segmented images)
+# We have to watch the training closely on the visdom server. if the generator loss and the discriminator loss diverge, we have to stop the training,
+# reassign the learning rates to balance the neural networks, and continue the training from the latest saved net.
 python train.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix_5000_subset --model pix2pix --save_by_iter --save_epoch_freq 1 --save_latest_freq 1000 --direction AtoB
 
-# test model (on all images)
+# Test model (on all images)
+# We have to change the name of the folder on which we want to test to 'test'
 python test.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix_5000_subset --model pix2pix --direction AtoB
 
 # Check the difference between fake images and real images for each brain
