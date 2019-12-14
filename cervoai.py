@@ -9,9 +9,9 @@ dir_fail = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/results/cervoai_pix2pix_
 dir_pass_diff = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/results/cervoai_pix2pix_5000_subset/test_latest_pass/images_diff"
 dir_fail_diff = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/results/cervoai_pix2pix_5000_subset/test_latest/images_diff"
 
-images = ('_7_real_B.png', '_8_real_B.png', '_9_real_B.png', '_10_real_B.png', '_11_real_B.png', '_12_real_B.png', '_13_real_B.png')
-# images = ('_5_real_B.png', '_6_real_B.png', '_7_real_B.png', '_8_real_B.png', '_9_real_B.png', '_10_real_B.png',
-#           '_11_real_B.png', '_12_real_B.png', '_13_real_B.png', '_14_real_B.png', '_15_real_B.png')
+# images = ('_7_real_B.png', '_8_real_B.png', '_9_real_B.png', '_10_real_B.png', '_11_real_B.png', '_12_real_B.png', '_13_real_B.png')
+images = ('_4_real_B.png', '_5_real_B.png', '_6_real_B.png', '_7_real_B.png', '_8_real_B.png', '_9_real_B.png', '_10_real_B.png',
+          '_11_real_B.png', '_12_real_B.png', '_13_real_B.png', '_14_real_B.png', '_15_real_B.png', '_16_real_B.png')
 pass_brains = {}
 for subdir, dirs, files in os.walk(dir_pass):
     for file in files:
@@ -59,7 +59,8 @@ for i in range(5):
 
     pass_accs = []
     fail_accs = []
-    cutoffs = [3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4400, 4500]
+    cutoffs = range(3500, 9000, 100)
+    # cutoffs = [3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4400, 4500]
 
     for cutoff in cutoffs:
         print("Cutoff: " + str(cutoff))
