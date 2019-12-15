@@ -62,6 +62,10 @@ train_pass_acc = []
 test_fail_acc = []
 test_pass_acc = []
 for i in range(5):
+    print("")
+    print("K=" + str(i))
+    print("-------------------")
+
     ft_i = i * fail_test_size
     ft_j = ft_i + fail_test_size
     fail_brains_test = dict(list(fail_brains.items())[ft_i:ft_j])
@@ -75,8 +79,7 @@ for i in range(5):
     pass_accs = []
     fail_accs = []
     cutoffs = range(5000, 20000, 200)
-    # cutoffs = [3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4400, 4500]
-
+    # cutoffs = [12540] # Best cutoff for axial + coronal
     for cutoff in cutoffs:
         print("Cutoff: " + str(cutoff))
         print("train_pass_brains:")

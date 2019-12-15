@@ -19,7 +19,7 @@ python train.py --dataroot ./datasets/cervoai_pix2pix_axial --name cervoai_pix2p
 
 # Test model (on all images)
 # We have to change the name of the folder on which we want to test to 'test'
-python test.py --dataroot ./datasets/cervoai_pix2pix --name cervoai_pix2pix_5000_subset --model pix2pix --direction AtoB
+python test.py --dataroot ./datasets/cervoai_pix2pix_axial --name cervoai_pix2pix_5000_axial --model pix2pix --direction AtoB
 
 # Check the difference between fake images and real images for each brain
 # Each brain as a value representing the sum of all differences
