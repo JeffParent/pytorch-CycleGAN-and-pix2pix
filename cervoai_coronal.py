@@ -13,45 +13,30 @@ dir_fail_diff = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/results/cervoai_pix
 images = ('_4_real_B.png', '_5_real_B.png', '_6_real_B.png', '_7_real_B.png', '_8_real_B.png', '_9_real_B.png', '_10_real_B.png',
           '_11_real_B.png', '_12_real_B.png', '_13_real_B.png', '_14_real_B.png', '_15_real_B.png', '_16_real_B.png')
 pass_brains = {}
-blacklist = []
 for subdir, dirs, files in os.walk(dir_pass):
     for file in files:
         if file.split("_")[0] not in pass_brains.keys():
             pass_brains[file.split("_")[0]] = 0
         if file.endswith(images):
-            try:
-                img_real_diff = Image.open(dir_pass + "/" + file)
-                img_fake_diff = Image.open(dir_pass + "/" + file.replace("real", "fake"))
-                img_real_diff_axial = Image.open(dir_pass.replace("subset", "axial") + "/" + file)
-                img_fake_diff_axial = Image.open(dir_pass.replace("subset", "axial") + "/" + file.replace("real", "fake"))
-                im1 = imagehash.average_hash(img_real_diff, hash_size=256)
-                im2 = imagehash.average_hash(img_fake_diff, hash_size=256)
-                im1_axial = imagehash.average_hash(img_real_diff_axial, hash_size=256)
-                im2_axial = imagehash.average_hash(img_fake_diff_axial, hash_size=256)
-                pass_brains[file.split("_")[0]] = pass_brains[file.split("_")[0]] + (abs(im1 - im2))
-                pass_brains[file.split("_")[0]] = pass_brains[file.split("_")[0]] + (abs(im1_axial - im2_axial))
-            except:
-                blacklist.append(file.split("_")[0])
+            img_real_diff = Image.open(dir_pass + "/" + file)
+            img_fake_diff = Image.open(dir_pass + "/" + file.replace("real", "fake"))
+            im1 = imagehash.average_hash(img_real_diff, hash_size=256)
+            im2 = imagehash.average_hash(img_fake_diff, hash_size=256)
+            pass_brains[file.split("_")[0]] = pass_brains[file.split("_")[0]] + (abs(im1 - im2))
+
 print("Diff Pass Means: " + str(numpy.array(list(pass_brains.values())).mean()))
 
 fail_brains = {}
 for subdir, dirs, files in os.walk(dir_fail):
     for file in files:
-        if file.split("_")[0] in blacklist:
-            continue
         if file.split("_")[0] not in fail_brains.keys():
             fail_brains[file.split("_")[0]] = 0
         if file.endswith(images):
             img_real_diff = Image.open(dir_fail + "/" + file)
             img_fake_diff = Image.open(dir_fail + "/" + file.replace("real", "fake"))
-            img_real_diff_axial = Image.open(dir_fail.replace("subset", "axial") + "/" + file)
-            img_fake_diff_axial = Image.open(dir_fail.replace("subset", "axial") + "/" + file.replace("real", "fake"))
             im1 = imagehash.average_hash(img_real_diff, hash_size=256)
             im2 = imagehash.average_hash(img_fake_diff, hash_size=256)
-            im1_axial = imagehash.average_hash(img_real_diff_axial, hash_size=256)
-            im2_axial = imagehash.average_hash(img_fake_diff_axial, hash_size=256)
             fail_brains[file.split("_")[0]] = fail_brains[file.split("_")[0]] + (abs(im1 - im2))
-            fail_brains[file.split("_")[0]] = fail_brains[file.split("_")[0]] + (abs(im1_axial - im2_axial))
 
 print("Diff Fail Means: " + str(numpy.array(list(fail_brains.values())).mean()))
 
@@ -74,7 +59,7 @@ for i in range(5):
 
     pass_accs = []
     fail_accs = []
-    cutoffs = range(5000, 20000, 200)
+    cutoffs = range(3500, 9000, 100)
     # cutoffs = [3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4400, 4500]
 
     for cutoff in cutoffs:

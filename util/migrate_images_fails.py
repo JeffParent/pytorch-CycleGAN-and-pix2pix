@@ -3,7 +3,7 @@ import pandas as pd
 import shutil
 
 src = "C:/Users/jeffp/CervoAI/Data/raw/AI_FS_QC_img"
-dst = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/datasets/cervoai_pix2pix"
+dst = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/datasets/cervoai_pix2pix_axial"
 csv = "C:/Users/jeffp/CervoAI/Data/raw/AI_FS_QC_img/data_AI_QC.csv"
 dstAtest = dst + "/A/test_fail"
 dstBtest = dst + "/B/test_fail"
@@ -14,8 +14,8 @@ fails_to_not_migrate = fails_to_not_migrate["id"].values
 
 i_t1 = 0
 for subdir, dirs, files in os.walk(src):
-    if "Coronal/t1" in subdir.replace("\\", "/"):
-        if subdir.replace("\\", "/").strip("Coronal/t1").strip(src) in fails_to_not_migrate:
+    if "Axial/t1" in subdir.replace("\\", "/"):
+        if subdir.replace("\\", "/").strip("Axial/t1").strip(src) in fails_to_not_migrate:
             print("Copying t1: " + str(i_t1) + "/565")
             i_t1 = i_t1 + 1
             for file in files:
@@ -24,8 +24,8 @@ for subdir, dirs, files in os.walk(src):
 
 i_labels = 0
 for subdir, dirs, files in os.walk(src):
-    if "Coronal/labels" in subdir.replace("\\", "/"):
-        if subdir.replace("\\", "/").strip("Coronal/labels").strip(src) in fails_to_not_migrate:
+    if "Axial/labels" in subdir.replace("\\", "/"):
+        if subdir.replace("\\", "/").strip("Axial/labels").strip(src) in fails_to_not_migrate:
             print("Copying labels: " + str(i_labels) + "/565")
             i_labels = i_labels + 1
             for file in files:

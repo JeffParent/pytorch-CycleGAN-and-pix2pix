@@ -3,7 +3,6 @@ import shutil
 
 dir = "C:/Users/jeffp/pytorch-CycleGAN-and-pix2pix/datasets/cervoai_pix2pix"
 
-com
 dir_train = dir + "/train"
 dir_test = dir + "/test"
 dir_val = dir + "/val"
