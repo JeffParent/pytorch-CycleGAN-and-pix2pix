@@ -57,10 +57,10 @@ print("Diff Fail Means: " + str(numpy.array(list(fail_brains.values())).mean()))
 
 fail_test_size = int(len(fail_brains)*0.2)
 pass_test_size = int(len(pass_brains)*0.2)
-train_fail_acc = []
-train_pass_acc = []
-test_fail_acc = []
-test_pass_acc = []
+train_fail_recall = []
+train_pass_recall = []
+test_fail_recall = []
+test_pass_recall = []
 for i in range(5):
     print("")
     print("K=" + str(i))
@@ -76,88 +76,88 @@ for i in range(5):
     pass_brains_test = dict(list(pass_brains.items())[pt_i:pt_j])
     pass_brains_train = dict(list(pass_brains.items())[0:pt_i] + list(pass_brains.items())[pt_j:-1])
 
-    pass_accs = []
-    fail_accs = []
+    pass_recalls = []
+    fail_recalls = []
     cutoffs = range(5000, 20000, 200)
     # cutoffs = [12540] # Best cutoff for axial + coronal
     for cutoff in cutoffs:
         print("Cutoff: " + str(cutoff))
         print("train_pass_brains:")
         print(str(len([k for k, v in pass_brains_train.items() if float(v) <= cutoff])) + "/" + str(len(pass_brains_train)))
-        pass_accs.append(len([k for k, v in pass_brains_train.items() if float(v) <= cutoff]) / len(pass_brains_train))
+        pass_recalls.append(len([k for k, v in pass_brains_train.items() if float(v) <= cutoff]) / len(pass_brains_train))
         print(str(len([k for k, v in pass_brains_train.items() if float(v) <= cutoff]) / len(pass_brains_train)))
         print("train_fail_brains:")
         print(str(len([k for k, v in fail_brains_train.items() if float(v) >= cutoff])) + "/" + str(len(fail_brains_train)))
-        fail_accs.append(len([k for k, v in fail_brains_train.items() if float(v) >= cutoff]) / len(fail_brains_train))
+        fail_recalls.append(len([k for k, v in fail_brains_train.items() if float(v) >= cutoff]) / len(fail_brains_train))
         print(str(len([k for k, v in fail_brains_train.items() if float(v) >= cutoff]) / len(fail_brains_train)))
         print("---")
-    train_pass_acc.append(pass_accs)
-    train_fail_acc.append(fail_accs)
+    train_pass_recall.append(pass_recalls)
+    train_fail_recall.append(fail_recalls)
 
     fig = pyplot.figure()
     sub = fig.add_subplot(111)
-    sub.plot(cutoffs, pass_accs, c='b', label='Pass Acc')
-    sub.plot(cutoffs, fail_accs, c='r', label='Fail Acc')
+    sub.plot(cutoffs, pass_recalls, c='b', label='Pass Recall')
+    sub.plot(cutoffs, fail_recalls, c='r', label='Fail Recall')
     pyplot.xlabel('Image Difference Value Threshold')
-    pyplot.ylabel('Accuracy')
+    pyplot.ylabel('Recall')
     pyplot.title('Train ' + str(i + 1))
     pyplot.legend()
     pyplot.show()
 
-    pass_accs = []
-    fail_accs = []
+    pass_recalls = []
+    fail_recalls = []
     for cutoff in cutoffs:
         print("Cutoff: " + str(cutoff))
         print("test_pass_brains:")
         print(str(len([k for k, v in pass_brains_test.items() if float(v) <= cutoff])) + "/" + str(len(pass_brains_test)))
-        pass_accs.append(len([k for k, v in pass_brains_test.items() if float(v) <= cutoff]) / len(pass_brains_test))
+        pass_recalls.append(len([k for k, v in pass_brains_test.items() if float(v) <= cutoff]) / len(pass_brains_test))
         print(str(len([k for k, v in pass_brains_test.items() if float(v) <= cutoff]) / len(pass_brains_test)))
         print("test_fail_brains:")
         print(str(len([k for k, v in fail_brains_test.items() if float(v) >= cutoff])) + "/" + str(len(fail_brains_test)))
-        fail_accs.append(len([k for k, v in fail_brains_test.items() if float(v) >= cutoff]) / len(fail_brains_test))
+        fail_recalls.append(len([k for k, v in fail_brains_test.items() if float(v) >= cutoff]) / len(fail_brains_test))
         print(str(len([k for k, v in fail_brains_test.items() if float(v) >= cutoff]) / len(fail_brains_test)))
         print("---")
-    test_pass_acc.append(pass_accs)
-    test_fail_acc.append(fail_accs)
+    test_pass_recall.append(pass_recalls)
+    test_fail_recall.append(fail_recalls)
 
     fig = pyplot.figure()
     sub = fig.add_subplot(111)
-    sub.plot(cutoffs, pass_accs, c='b', label='Pass Acc')
-    sub.plot(cutoffs, fail_accs, c='r', label='Fail Acc')
+    sub.plot(cutoffs, pass_recalls, c='b', label='Pass Recall')
+    sub.plot(cutoffs, fail_recalls, c='r', label='Fail Recall')
     pyplot.xlabel('Image Difference Value Threshold')
-    pyplot.ylabel('Accuracy')
+    pyplot.ylabel('Recall')
     pyplot.title('Test ' + str(i + 1))
     pyplot.legend()
     pyplot.show()
 
-temp_train_pass_acc = [sum(x) for x in zip(*train_pass_acc)]
-train_pass_acc_means = [x / 5 for x in temp_train_pass_acc]
+temp_train_pass_recall = [sum(x) for x in zip(*train_pass_recall)]
+train_pass_recall_means = [x / 5 for x in temp_train_pass_recall]
 
-temp_train_fail_acc = [sum(x) for x in zip(*train_fail_acc)]
-train_fail_acc_means = [x / 5 for x in temp_train_fail_acc]
+temp_train_fail_recall = [sum(x) for x in zip(*train_fail_recall)]
+train_fail_recall_means = [x / 5 for x in temp_train_fail_recall]
 
-temp_test_pass_acc = [sum(x) for x in zip(*test_pass_acc)]
-test_pass_acc_means = [x / 5 for x in temp_test_pass_acc]
+temp_test_pass_recall = [sum(x) for x in zip(*test_pass_recall)]
+test_pass_recall_means = [x / 5 for x in temp_test_pass_recall]
 
-temp_test_fail_acc = [sum(x) for x in zip(*test_fail_acc)]
-test_fail_acc_means = [x / 5 for x in temp_test_fail_acc]
+temp_test_fail_recall = [sum(x) for x in zip(*test_fail_recall)]
+test_fail_recall_means = [x / 5 for x in temp_test_fail_recall]
 
 fig = pyplot.figure()
 sub = fig.add_subplot(111)
-sub.plot(cutoffs, train_pass_acc_means, c='b', label='Pass Acc')
-sub.plot(cutoffs, train_fail_acc_means, c='r', label='Fail Acc')
+sub.plot(cutoffs, train_pass_recall_means, c='b', label='Pass Recall')
+sub.plot(cutoffs, train_fail_recall_means, c='r', label='Fail Recall')
 pyplot.xlabel('Image Difference Value Threshold')
-pyplot.ylabel('Accuracy')
+pyplot.ylabel('Recall')
 pyplot.title('Train with kfold k=5')
 pyplot.legend()
 pyplot.show()
 
 fig = pyplot.figure()
 sub = fig.add_subplot(111)
-sub.plot(cutoffs, test_pass_acc_means, c='b', label='Pass Acc')
-sub.plot(cutoffs, test_fail_acc_means, c='r', label='Fail Acc')
+sub.plot(cutoffs, test_pass_recall_means, c='b', label='Pass Recall')
+sub.plot(cutoffs, test_fail_recall_means, c='r', label='Fail Recall')
 pyplot.xlabel('Image Difference Value Threshold')
-pyplot.ylabel('Accuracy')
+pyplot.ylabel('Recall')
 pyplot.title('Test with kfold k=5')
 pyplot.legend()
 pyplot.show()
